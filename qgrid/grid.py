@@ -1,32 +1,22 @@
-import ipywidgets as widgets
-import pandas as pd
-import numpy as np
 import json
-
-from types import FunctionType
-from IPython.display import display
-from numbers import Integral
-from traitlets import (
-    Unicode,
-    Instance,
-    Bool,
-    Integer,
-    Dict,
-    List,
-    Tuple,
-    Any,
-    All,
-    parse_notifier_name
-)
-from itertools import chain
-from uuid import uuid4
-from six import string_types
-
 # versions of pandas prior to version 0.20.0 don't support the orient='table'
 # when calling the 'to_json' function on DataFrames.  to get around this we
 # have our own copy of the panda's 0.20.0 implementation that we use for old
 # versions of pandas.
 from distutils.version import LooseVersion
+from itertools import chain
+from numbers import Integral
+from types import FunctionType
+from uuid import uuid4
+
+import ipywidgets as widgets
+import numpy as np
+import pandas as pd
+from IPython.display import display
+from six import string_types
+from traitlets import (All, Any, Bool, Dict, Instance, Integer, List, Tuple,
+                       Unicode, parse_notifier_name)
+
 if LooseVersion(pd.__version__) > LooseVersion('0.20.0'):
     import pandas.io.json as pd_json
 else:
@@ -521,7 +511,7 @@ def stringify(x):
         return str(x)
 
 
-@widgets.register()
+@widgets.register
 class QgridWidget(widgets.DOMWidget):
     """
     The widget class which is instantiated by the ``show_grid`` method. This
